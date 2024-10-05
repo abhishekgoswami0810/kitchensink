@@ -6,7 +6,6 @@ import com.example.kitchensink.model.Member;
 import com.example.kitchensink.repository.MemberRepository;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,22 +16,19 @@ public class MemberRegistrationService {
 
   private final MemberRepository memberRepository;
 
-  private final ApplicationEventPublisher eventPublisher;
-
   public MemberRegistrationService(
-      MemberRepository memberRepository, ApplicationEventPublisher eventPublisher) {
+      MemberRepository memberRepository) {
     this.memberRepository = memberRepository;
-    this.eventPublisher = eventPublisher;
   }
 
   public void registerMember(Member member) {
     log.info("Registering {}", member);
     MemberEntity memberEntity = memberMapper.memberToMemberEntity(member);
     memberRepository.save(memberEntity);
-    eventPublisher.publishEvent(member);
   }
 
   public List<Member> getAllMembers() {
-    return memberMapper.memberEntityListToMemberList(memberRepository.findAll());
+    List<MemberEntity> memberEntities = memberRepository.findAllOrderedByName();
+    return memberMapper.memberEntityListToMemberList(memberEntities);
   }
 }

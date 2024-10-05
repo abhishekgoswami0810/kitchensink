@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@WebMvcTest(MemberController.class)
-class MemberControllerTest {
+@WebMvcTest(RestService.class)
+class RestServiceTest {
 
   @Autowired private MockMvc mockMvc;
 
@@ -33,7 +33,7 @@ class MemberControllerTest {
 
   @Test
   void listAllMembers() throws Exception {
-    Mockito.when(memberRepository.findAll()).thenReturn(memberEntities);
+    Mockito.when(memberRepository.findAllOrderedByName()).thenReturn(memberEntities);
 
     mockMvc
         .perform(MockMvcRequestBuilders.get("/rest/members"))
@@ -41,7 +41,7 @@ class MemberControllerTest {
         .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
         .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(2));
 
-    Mockito.verify(memberRepository, Mockito.times(1)).findAll();
+    Mockito.verify(memberRepository, Mockito.times(1)).findAllOrderedByName();
     Mockito.verifyNoMoreInteractions(memberRepository);
   }
 }

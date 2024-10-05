@@ -1,52 +1,93 @@
 package com.example.kitchensink.controller;
 
-import com.example.kitchensink.entity.MemberEntity;
-import com.example.kitchensink.repository.MemberRepository;
-import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.example.kitchensink.model.Member;
+import com.example.kitchensink.service.MemberRegistrationService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
-@RequestMapping("/rest/members")
+@Controller
+@Slf4j
 public class MemberController {
 
-  private final MemberRepository repository;
+  private final MemberRegistrationService memberRegistrationService;
 
-  public MemberController(MemberRepository repository) {
-    this.repository = repository;
+  @Autowired
+  public MemberController(MemberRegistrationService memberRegistrationService) {
+    this.memberRegistrationService = memberRegistrationService;
   }
 
-  // Get a list of all members
-  @GetMapping
-  public List<MemberEntity> listAllMembers() {
-    return repository.findAll();
-  }
-
-  // Get member by ID
-  @GetMapping("/{id}")
-  public ResponseEntity<MemberEntity> lookupMemberById(@PathVariable("id") String id) {
-    MemberEntity memberEntity = repository.findById(id).orElse(null);
-    if (memberEntity == null) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  /**
+   * Displays the registration form and the list of registered members.
+   */
+  @GetMapping("/members")
+  public String showRegistrationForm(Model model, Authentication authentication) {
+    if (authentication == null || !authentication.isAuthenticated()) {
+      return "redirect:/login";
     }
-    return ResponseEntity.ok(memberEntity);
+
+    // Check if the user has the ADMIN role
+    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    if (!userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+      return "redirect:/";
+    }
+
+    model.addAttribute("member", new Member());
+    model.addAttribute("members", memberRegistrationService.getAllMembers());
+    return "index";
   }
 
-  // Create a new member
-  /* @PostMapping
-  public ResponseEntity<?> createMember(@Valid @RequestBody Member member) {
+  /**
+   * Handles the registration of a new member.
+   */
+  @PostMapping("/register")
+  public String registerMember(
+      @Valid @ModelAttribute("member") Member member,
+      RedirectAttributes redirectAttributes) {
     try {
-      // Register the new member
-      registration.registerMember(member);
+      memberRegistrationService.registerMember(member);
+      redirectAttributes.addFlashAttribute("registrationSuccess", true);
+      redirectAttributes.addFlashAttribute("successMessage", "Member successfully registered!");
 
-      // Return success response
-      return new ResponseEntity<>(HttpStatus.OK);
     } catch (Exception e) {
-      // Handle generic exceptions
-      Map<String, String> responseObj = new HashMap<>();
-      responseObj.put("error", e.getMessage());
-      return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+      String errorMessage = getRootErrorMessage(e);
+      log.error(errorMessage);
+
+      redirectAttributes.addFlashAttribute("registrationError", true);
+      redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
     }
-  }*/
+    return "redirect:/members";
+  }
+
+  /**
+   * Displays the login page.
+   */
+  @GetMapping("/login")
+  public String showLoginPage() {
+    return "login";
+  }
+
+  /**
+   * Utility method to extract the root cause message from an exception.
+   */
+  private String getRootErrorMessage(Exception e) {
+    String errorMessage = "Registration failed. See server log for more information";
+    if (e == null) {
+      return errorMessage;
+    }
+    Throwable t = e;
+    while (t.getCause() != null) {
+      t = t.getCause();
+    }
+    return t.getLocalizedMessage();
+  }
 }

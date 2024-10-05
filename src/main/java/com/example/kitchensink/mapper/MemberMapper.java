@@ -13,7 +13,6 @@ public interface MemberMapper {
 
   MemberEntity memberToMemberEntity(Member member);
 
-  // Method to map List<MemberEntity> to List<Member>
   List<Member> memberEntityListToMemberList(List<MemberEntity> memberEntities);
 
   Member memberEntityToMember(MemberEntity memberEntity);

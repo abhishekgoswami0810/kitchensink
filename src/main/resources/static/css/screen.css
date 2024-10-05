@@ -3,7 +3,7 @@
  * Copyright 2015, Red Hat, Inc.
  */
 ‰
-/* Core styles for the page */
+  /* Core styles for the page */
 body {
   margin: 0;
   padding: 0;
@@ -11,22 +11,6 @@ body {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-size: 0.8em;
   color: #363636;
-}
-
-#container {
-  margin: 0 auto;
-  padding: 0 20px 10px 20px;
-  border-top: 5px solid #000000;
-  border-left: 5px solid #8c8f91;
-  border-right: 5px solid #8c8f91;
-  border-bottom: 25px solid #8c8f91;
-  width: 865px; /* subtract 40px from banner width for padding */
-  background: #FFFFFF;
-  /* Update image path for Thymeleaf static resources */
-  background-image: url('/static/gfx/headerbkg.png');
-  background-repeat: repeat-x;
-  padding-top: 30px;
-  box-shadow: 3px 3px 15px #d5d5d5;
 }
 
 #content {
@@ -195,3 +179,84 @@ input {
   color: #3883ce;
   text-decoration: none;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position the tooltip above the text */
+  left: 50%;
+  margin-left: -100px; /* Center the tooltip */
+  opacity: 0;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.valid {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for Error Messages */
+.invalid {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.5s ease-out;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table th {
+  background-color: #f4f4f4;
+}
+
