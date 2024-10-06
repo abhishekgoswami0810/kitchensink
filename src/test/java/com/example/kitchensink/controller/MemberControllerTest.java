@@ -97,4 +97,9 @@ class MemberControllerTest {
     // Then
     assertEquals("login", viewName);
   }
+
+  @Test
+  public void showMembersPage_ShouldReturnMembersView() {
+
+  }
 }

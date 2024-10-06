@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     // Find user by email
     MemberEntity memberEntity = memberRepository.findByEmail(email)
         .orElseThrow(
-            () -> new UsernameNotFoundException("User not found with username: " + email));
+            () -> new UsernameNotFoundException("User not found with email: " + email));
 
     System.out.println("User found: " + memberEntity.getEmail());
     System.out.println("User role: " + memberEntity.getRole());
