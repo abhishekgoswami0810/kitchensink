@@ -34,7 +34,8 @@
         <legend>Member Registration</legend>
         <div class="form-group">
           <label for="name">Name:</label>
-          <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required/>
+          <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required
+                 pattern="[^0-9]*"/>
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
