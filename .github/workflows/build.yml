@@ -1,0 +1,57 @@
+name: Build Spring Boot Application
+
+# Triggers the workflow on push or pull request events to the `main` branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Specifies the jobs to be run
+jobs:
+  build:
+    # The job will run on the latest Ubuntu environment
+    runs-on: ubuntu-latest
+
+    # Define environment variables
+    env:
+      JAVA_VERSION: '21'
+      MAVEN_OPTS: -Xmx1024m
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up JDK version
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      # Cache the Maven repository to speed up the build process
+      - name: Cache Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Build the project using Maven
+      - name: Build with Maven
+        run: mvn clean install -DskipTests
+
+      # Run tests
+      - name: Run tests
+        run: mvn test
+
+      # Archive build artifacts (Optional, to download built artifacts)
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-artifacts
+          path: target/*.jar
