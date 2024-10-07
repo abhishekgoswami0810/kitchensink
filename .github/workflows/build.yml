@@ -19,7 +19,10 @@ jobs:
     env:
       JAVA_VERSION: '21'
       MAVEN_OPTS: -Xmx1024m
-
+      MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
+      MONGO_HOST: ${{ secrets.MONGO_HOST }}
+      MONGO_USERNAME: ${{ secrets.MONGO_USERNAME }}
+      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
     steps:
       # Checkout the repository code
       - name: Checkout code
