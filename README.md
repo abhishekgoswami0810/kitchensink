@@ -8,14 +8,10 @@ The application provides a simple web interface for managing user registrations,
 
 1. [Prerequisites](#prerequisites)
 2. [Getting Started](#getting-started)
-3. [Project Structure](#project-structure)
-4. [Features](#features)
-5. [Environment Configuration](#environment-configuration)
-6. [Running the Application](#running-the-application)
-7. [Testing and Debugging](#testing-and-debugging)
-8. [API Endpoints](#api-endpoints)
-9. [Technology Stack](#technology-stack)
-10. [PPT Presentation](#ppt-presentation)
+3. [Features](#features)
+4. [API Endpoints](#api-endpoints)
+5. [Technology Stack](#technology-stack)
+6. [PPT Presentation](#ppt-presentation)
 
 ## Prerequisites
 
@@ -52,4 +48,27 @@ Follow these instructions to set up and run the application on your local machin
     Password: adminpass
 6. **Admin Home Page**
    After logging in, you will be redirected to the Admin Home page where you can register new members, edit or delete existing members, and view member details.
+
+## API Endpoints
+The application exposes the following API endpoints:
+
+Method	Endpoint	Description	Role
+GET	/admin/members	Retrieve all registered members	ADMIN
+GET	/admin/members/{id}	Retrieve member by ID	ADMIN
+POST	/admin/members	Register a new member	ADMIN
+PUT	/admin/members/{id}	Update member information	ADMIN
+DELETE	/admin/members/{id}	Delete a member by ID	ADMIN
+GET	/user-profile	View profile of the logged-in user	USER
+
+## Technology Stack
+Backend: Spring Boot, Spring Security, Spring Data MongoDB
+Frontend: Thymeleaf, HTML5, CSS3, JavaScript
+Database: MongoDB
+Testing: JUnit, Mockito
+Build Tool: Maven
+Security: JWT for API authentication, role-based access control
+
+
+## PPT Presentation
+For a detailed overview of the project and its architecture, refer to the PPT Presentation.
 
