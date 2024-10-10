@@ -50,25 +50,28 @@ Follow these instructions to set up and run the application on your local machin
    After logging in, you will be redirected to the Admin Home page where you can register new members, edit or delete existing members, and view member details.
 
 ## API Endpoints
+
 The application exposes the following API endpoints:
 
-Method	Endpoint	Description	Role
-GET	/admin/members	Retrieve all registered members	ADMIN
-GET	/admin/members/{id}	Retrieve member by ID	ADMIN
-POST	/admin/members	Register a new member	ADMIN
-PUT	/admin/members/{id}	Update member information	ADMIN
-DELETE	/admin/members/{id}	Delete a member by ID	ADMIN
-GET	/user-profile	View profile of the logged-in user	USER
+| Method   | Endpoint                          | Description                          | Role  |
+|----------|-----------------------------------|--------------------------------------|-------|
+| `GET`    | `/admin/members`                  | Retrieve all registered members      | ADMIN |
+| `GET`    | `/admin/members/{id}`             | Retrieve member by ID                | ADMIN |
+| `POST`   | `/admin/members`                  | Register a new member                | ADMIN |
+| `PUT`    | `/admin/members/{id}`             | Update member information            | ADMIN |
+| `DELETE` | `/admin/members/{id}`             | Delete a member by ID                | ADMIN |
+| `GET`    | `/user-profile`                   | View profile of the logged-in user   | USER  |
+
 
 ## Technology Stack
-Backend: Spring Boot, Spring Security, Spring Data MongoDB
-Frontend: Thymeleaf, HTML5, CSS3, JavaScript
-Database: MongoDB
-Testing: JUnit, Mockito
-Build Tool: Maven
-Security: JWT for API authentication, role-based access control
+- **Backend**: Spring Boot, Spring Security, Spring Data MongoDB
+- **Frontend**: Thymeleaf, HTML5, CSS3, JavaScript
+- **Database**: MongoDB
+- **Testing**: JUnit, Mockito
+- **Build Tool**: Maven
+- **Security**: JWT for API authentication, role-based access control
 
 
 ## PPT Presentation
-For a detailed overview of the project and its architecture, refer to the PPT Presentation.
+For a detailed overview of the project and its architecture, refer to the PPT Presentation - https://docs.google.com/presentation/d/14Q4zLUja75BgI5quOxa3KpaMV3QClob9RQuZj_cgI8o/edit#slide=id.g184d99d1a72_0_57
 
