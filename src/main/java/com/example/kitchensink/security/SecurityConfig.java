@@ -10,7 +10,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,7 +49,7 @@ public class SecurityConfig {
         )
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/","/login", "/register","/401").permitAll()
+            .requestMatchers("/", "/login", "/register", "/401").permitAll()
             .requestMatchers("/admin/home").hasRole("ADMIN")
             .requestMatchers("/admin/members/**").hasRole("ADMIN")
             .requestMatchers("/user-profile").hasRole("USER")

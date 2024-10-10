@@ -39,7 +39,7 @@ public class MemberController {
    */
   @GetMapping("/admin/home")
   public String showAdminHome(Model model, Principal principal) {
-    String loggedInUserName = principal.getName(); // Get the logged-in user's username
+    String loggedInUserName = principal.getName();
     model.addAttribute("loggedInUser", loggedInUserName);
     model.addAttribute("member", new Member());
     model.addAttribute("members", memberService.getAllMembers());

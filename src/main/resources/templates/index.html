@@ -91,6 +91,13 @@
         <tbody>
         <tr th:each="member : ${members}">
           <td>
+            <!-- Cancel Button (X) (Hidden Initially) -->
+            <button type="button" class="cancel-button icon-button" style="display:none;"
+                    onclick="cancelEdit(this)">❌
+            </button>
+            <!-- Save Link (Hidden Initially) -->
+            <a th:href="@{/admin/members/{id}(id=${member.id})}" class="save-link icon-button"
+               onclick="saveMember(this, this.href); return false;" style="display:none;">💾</a>
             <!-- Edit Button Icon -->
             <!-- Only show Edit button if the current member is not the logged-in user -->
             <button type="button" class="edit-button icon-button"
@@ -101,13 +108,6 @@
             <a th:href="@{/admin/members/{id}(id=${member.id})}" class="delete-link icon-button"
                th:if="${loggedInUser != member.email}"
                onclick="deleteMember(this, this.href); return false;">🗑️</a>
-            <!-- Save Link (Hidden Initially) -->
-            <a th:href="@{/admin/members/{id}(id=${member.id})}" class="save-link icon-button"
-               onclick="saveMember(this, this.href); return false;" style="display:none;">💾</a>
-            <!-- Cancel Button (X) (Hidden Initially) -->
-            <button type="button" class="cancel-button icon-button" style="display:none;"
-                    onclick="cancelEdit(this)">❌
-            </button>
           </td>
           <td th:text="${member.id}"></td>
           <td><input type="text" th:value="${member.name}" disabled class="editable-field"/></td>

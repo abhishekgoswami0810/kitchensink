@@ -226,11 +226,18 @@ function saveMember(anchor, url) {
       cancelButton.style.display = 'none';
       editButton.style.display = 'inline';
     } else {
-      alert("Failed to update member.");
+      // Extract error message from response and display it in the alert
+      response.json().then(errorMessage => {
+        alert(`Failed to update member. Error: ${errorMessage.message || "Unknown error"}`);
+      });
     }
   })
-  .catch(error => console.error('Error updating member:', error));
+  .catch(error => {
+    console.error('Error updating member:', error);
+    alert(`Failed to update member. Error: ${error.message}`);
+  });
 }
+
 
 
 

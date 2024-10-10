@@ -51,7 +51,7 @@ public class RestService {
   public ResponseEntity<Member> registerMember(@Valid @RequestBody Member member) {
 
     // setting password null right now, But this needs to be updated as per requirements. We can
-    // use encoder here as well and take password as input
+    // use encoder here as well if we want to take password as input
     member.setPassword(null);
     Member registeredMember = memberService.registerMember(member);
     return new ResponseEntity<>(registeredMember, HttpStatus.CREATED);

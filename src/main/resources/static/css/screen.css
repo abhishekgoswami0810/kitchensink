@@ -173,7 +173,7 @@ input {
 }
 
 .simpletablestyle th {
-  background: url('/static/gfx/bkg-blkheader.png') black repeat-x top left;
+  background: black;
   font-size: 12px;
   font-weight: normal;
   padding: 0 10px 0 5px;
@@ -181,7 +181,7 @@ input {
 }
 
 .simpletablestyle thead {
-  background: url('/static/gfx/bkg-blkheader.png') black repeat-x top left;
+  background: black;
   height: 31px;
   font-size: 10px;
   font-weight: bold;
