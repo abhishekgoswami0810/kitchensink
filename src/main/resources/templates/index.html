@@ -32,20 +32,23 @@
     <form th:action="@{/register}" th:object="${member}" method="post">
       <fieldset>
         <legend>Member Registration</legend>
-        <div class="form-group">
+        <div class="form-group tooltip-container">
           <label for="name">Name:</label>
           <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required
                  pattern="[^0-9]*"/>
+          <span class="tooltip-text">Your full name (no numbers).</span>
         </div>
-        <div class="form-group">
+        <div class="form-group tooltip-container">
           <label for="email">Email:</label>
           <input type="email" id="email" th:field="*{email}" placeholder="Enter your email"
                  required/>
+          <span class="tooltip-text">e.g., user@example.com</span>
         </div>
-        <div class="form-group">
+        <div class="form-group tooltip-container">
           <label for="phoneNumber">Phone:</label>
           <input type="text" id="phoneNumber" th:field="*{phoneNumber}"
-                 placeholder="Enter your phone number" required pattern="\d{10,12}"/>
+                 placeholder="Enter your phone number" required/>
+          <span class="tooltip-text">Your phone number (10-12 digits).</span>
         </div>
         <div class="role-section">
           <label>Role:</label>

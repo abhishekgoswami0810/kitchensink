@@ -26,7 +26,7 @@ public class MemberService {
    * Registers a new member by saving the member document in the database.
    */
   public Member registerMember(Member member) {
-    log.info("Registering {}", member);
+    log.info("Registering member: {}", member);
     MemberDocument memberDocument = memberMapper.memberToMemberEntity(member);
     memberRepository.save(memberDocument);
 
